@@ -1,0 +1,48 @@
+﻿@page "/assignment/create"
+@page "/assignment/edit/{assignmentId:int}"
+@using TaskAssignment.Shared.Models
+@inject HttpClient Http
+@inject NavigationManager navigationManager
+
+@if (assignmentId > 0)
+{
+    <AssignmentInfo AssignmentId="assignmentId" HeaderText="Update Assignment Details" Assignment="assignment" OnValidSubmit="UpdateAssignment"></AssignmentInfo>
+}
+else
+{
+    <AssignmentInfo AssignmentId="0" HeaderText="Add Assignment Details" Assignment="assignment" OnValidSubmit="CreateAssignment"></AssignmentInfo>
+}
+
+@code {
+    private Assignment assignment = new Assignment();
+
+    [Parameter] public int assignmentId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (assignmentId > 0)
+            assignment = await Http.GetFromJsonAsync<Assignment>($"/api/assignment/getassignment/{assignmentId}");
+    }
+
+    private async Task CreateAssignment()
+    {
+        Console.WriteLine(assignment.Description);
+
+        var result = await Http.PostAsJsonAsync("/api/assignment/saveassignment", assignment);
+        if (result != null && result.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            navigationManager.NavigateTo("assignment/index");
+        }
+    }
+
+    private async Task UpdateAssignment()
+    {
+        Console.WriteLine(assignment.Description);
+
+        var result = await Http.PostAsJsonAsync("/api/assignment/updateassignment", assignment);
+        if (result != null && result.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            navigationManager.NavigateTo("assignment/index");
+        }
+    }
+}

@@ -1,0 +1,105 @@
+﻿@using TaskAssignment.Shared.Models
+
+<h3>@HeaderText</h3>
+<hr />
+<div style="width:60%;">
+
+    <EditForm Model="Assignment" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="row mb-3">
+            <label for="inputCode" class="col-sm-2 col-form-label">Título de la tarea</label>
+            <div class="col-sm-10">
+                <InputText type="text" class="form-control" id="empcode" @bind-Value="@Assignment.Title" disabled=@ReadOnlyMode />
+                <ValidationMessage For="@(() => Assignment.Title)" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputName" class="col-sm-2 col-form-label">Descripción de la tarea</label>
+            <div class="col-sm-10">
+                <InputText type="text" class="form-control" id="empname" @bind-Value="@Assignment.Description" disabled=@ReadOnlyMode />
+                <ValidationMessage For="@(() => Assignment.Description)" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputStartDate" class="col-sm-2 col-form-label">Fecha de inicio</label>
+            <div class="col-sm-10">
+                <InputDate class="form-control" @bind-Value="@Assignment.StartDate" disabled=@ReadOnlyMode />
+                <ValidationMessage For="@(() => Assignment.StartDate)" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputEndDate" class="col-sm-2 col-form-label">Fecha de finalización</label>
+            <div class="col-sm-10">
+                <InputDate class="form-control" @bind-Value="@Assignment.EndDate" disabled=@ReadOnlyMode />
+                <ValidationMessage For="@(() => Assignment.EndDate)" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputPriority" class="col-sm-2 col-form-label">Prioridad</label>
+            <div class="col-sm-10">
+                <InputText type="text" class="form-control" @bind-Value="@Assignment.Priority" disabled=@ReadOnlyMode />
+                <ValidationMessage For="@(() => Assignment.Priority)" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputStatus" class="col-sm-2 col-form-label">Estatus</label>
+            <div class="col-sm-10">
+                <InputText type="text" class="form-control" @bind-Value="@Assignment.Status" disabled=@ReadOnlyMode />
+                <ValidationMessage For="@(() => Assignment.Status)" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputCategory" class="col-sm-2 col-form-label">Categoria</label>
+            <div class="col-sm-10">
+                <InputText type="text" class="form-control" @bind-Value="@Assignment.Category" disabled=@ReadOnlyMode />
+                <ValidationMessage For="@(() => Assignment.Category)" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputAssignee" class="col-sm-2 col-form-label">Assignee</label>
+            <div class="col-sm-10">
+                <InputText type="text" class="form-control" @bind-Value="@Assignment.Assignee" disabled=@ReadOnlyMode />
+                <ValidationMessage For="@(() => Assignment.Assignee)" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputReminder" class="col-sm-2 col-form-label">Reminder</label>
+            <div class="col-sm-10">
+                <InputCheckbox @bind-Value="@Assignment.Reminder" disabled=@ReadOnlyMode />
+                <ValidationMessage For="@(() => Assignment.Reminder)" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputReminderDate" class="col-sm-2 col-form-label">Reminder Date</label>
+            <div class="col-sm-10">
+                <InputDate class="form-control" @bind-Value="@Assignment.ReminderDate" disabled=@ReadOnlyMode />
+                <ValidationMessage For="@(() => Assignment.ReminderDate)" />
+            </div>
+        </div>
+        <!-- Your form fields for Assignament data here -->
+
+        <a class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true" href="/">Back To Assignment List</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        @if (ReadOnlyMode == false)
+        {
+            <button type="submit" class="btn btn-primary">@(AssignmentId > 0 ? "Update" : "Save")</button>
+        }
+    </EditForm>
+</div>
+
+@code {
+    [Parameter] public int AssignmentId { get; set; }
+    [Parameter] public string HeaderText { get; set; }
+    [Parameter] public Assignment Assignment { get; set; }
+    [Parameter] public bool ReadOnlyMode { get; set; }
+
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        // Your initialization code here, if needed.
+    }
+}

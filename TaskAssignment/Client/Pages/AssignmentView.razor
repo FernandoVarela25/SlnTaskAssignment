@@ -1,0 +1,13 @@
+﻿@page "/assignment/view/{assignmentId:int}"
+@using TaskAssignment.Shared.Models
+@inject HttpClient Http
+
+<AssignmentInfo AssignmentId="assignmentId" HeaderText="Assignment View" Assignment="assignment" ReadOnlyMode=true></AssignmentInfo>
+
+@code {
+    [Parameter] public int assignmentId { get; set; }
+
+    private Assignment assignment = new Assignment();
+
+    protected override async Task OnInitializedAsync() => assignment = await Http.GetFromJsonAsync<Assignment>($"/api/assignment/getassignment/{assignmentId}");
+}
