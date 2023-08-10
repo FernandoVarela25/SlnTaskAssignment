@@ -15,6 +15,7 @@ namespace TaskAssignment.Shared.Models
         [StringLength(100)]
         public string Title { get; set; }
 
+        [Required]
         [StringLength(500)]
         public string Description { get; set; }
 
@@ -26,20 +27,26 @@ namespace TaskAssignment.Shared.Models
         [DataType(DataType.DateTime)]
         public DateTime EndDate { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Priority { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Status { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Category { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string Assignee { get; set; }
 
+        [Required]
         public bool Reminder { get; set; }
 
+        [Required]
         [DataType(DataType.DateTime)]
         public DateTime? ReminderDate { get; set; }
     }
