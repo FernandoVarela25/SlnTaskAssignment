@@ -31,7 +31,7 @@ else
         var result = await Http.PostAsJsonAsync("/api/assignment/saveassignment", assignment);
         if (result != null && result.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            navigationManager.NavigateTo("assignment/index");
+            navigationManager.NavigateTo("/");
         }
     }
 
@@ -42,7 +42,7 @@ else
         var result = await Http.PostAsJsonAsync("/api/assignment/updateassignment", assignment);
         if (result != null && result.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            navigationManager.NavigateTo("assignment/index");
+            navigationManager.NavigateTo("/");
         }
     }
 }

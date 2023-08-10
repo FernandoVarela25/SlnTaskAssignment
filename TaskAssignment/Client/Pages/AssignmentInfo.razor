@@ -56,21 +56,21 @@
             </div>
         </div>
         <div class="row mb-3">
-            <label for="inputAssignee" class="col-sm-2 col-form-label">Assignee</label>
+            <label for="inputAssignee" class="col-sm-2 col-form-label">Asignar</label>
             <div class="col-sm-10">
                 <InputText type="text" class="form-control" @bind-Value="@Assignment.Assignee" disabled=@ReadOnlyMode />
                 <ValidationMessage For="@(() => Assignment.Assignee)" />
             </div>
         </div>
         <div class="row mb-3">
-            <label for="inputReminder" class="col-sm-2 col-form-label">Reminder</label>
+            <label for="inputReminder" class="col-sm-2 col-form-label">Remedial</label>
             <div class="col-sm-10">
                 <InputCheckbox @bind-Value="@Assignment.Reminder" disabled=@ReadOnlyMode />
                 <ValidationMessage For="@(() => Assignment.Reminder)" />
             </div>
         </div>
         <div class="row mb-3">
-            <label for="inputReminderDate" class="col-sm-2 col-form-label">Reminder Date</label>
+            <label for="inputReminderDate" class="col-sm-2 col-form-label">Fecha Remedial</label>
             <div class="col-sm-10">
                 <InputDate class="form-control" @bind-Value="@Assignment.ReminderDate" disabled=@ReadOnlyMode />
                 <ValidationMessage For="@(() => Assignment.ReminderDate)" />
@@ -78,12 +78,12 @@
         </div>
         <!-- Your form fields for Assignament data here -->
 
-        <a class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true" href="/">Back To Assignment List</a>
+        <a class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true" href="/">Regresar a la Lista</a>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
         @if (ReadOnlyMode == false)
         {
-            <button type="submit" class="btn btn-primary">@(AssignmentId > 0 ? "Update" : "Save")</button>
+            <button type="submit" class="btn btn-primary">@(AssignmentId > 0 ? "Actualizar" : "Guardar")</button>
         }
     </EditForm>
 </div>

@@ -2,6 +2,7 @@
 @using TaskAssignment.Shared.Models
 @inject HttpClient Http
 @inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
 
 <h3>Lista de Tareas</h3>
 <div class="table-responsive">
@@ -86,8 +87,8 @@
 
     private async Task DeleteAssignment(Assignment assignment)
     {
-        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", $"Are you sure to Delete the Assignment Record : {assignment.Id}?"); // Confirm
-
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", $"¿Esta seguro de eliminar este campo? : {assignment.Id}?"); // Confirm
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
         if (confirmed)
         {
             var result = await Http.DeleteAsync($"/api/assignment/deleteassignment/{assignment.Id}");
