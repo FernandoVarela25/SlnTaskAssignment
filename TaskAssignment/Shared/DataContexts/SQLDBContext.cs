@@ -23,7 +23,7 @@ namespace TaskAssignment.Shared.DataContexts
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=tcp:taskassignments.database.windows.net,1433;Initial Catalog=Assignments;Persist Security Info=False;User ID=veggetta;Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Data Source=taskassignments.database.windows.net;Initial Catalog=Assignments;User ID=veggetta;Password=Wiggetta7#;Connect Timeout=60;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
             base.OnConfiguring(optionsBuilder);
         }
