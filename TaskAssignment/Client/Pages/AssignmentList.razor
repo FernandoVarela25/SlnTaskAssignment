@@ -1,63 +1,67 @@
-﻿@page "/"
+﻿@page "/assignment/index"
 @using TaskAssignment.Shared.Models
 @inject HttpClient Http
 @inject IJSRuntime JsRuntime
 
-<div class="container">
-    <h3>Lista de Tareas</h3>
-    <div class="table-responsive">
-        <table class="table table-striped table-primary">
-            <thead>
+<h3>Lista de Tareas</h3>
+<div class="table-responsive">
+    <table class="table table-striped table-primary">
+        <thead>
+            <tr>
+                <th class="table-dark">Id</th>
+                <th class="table-dark">Título</th>
+                <th class="table-dark">Descripción</th>
+                <th class="table-dark">Fecha de Inicio</th>
+                <th class="table-dark">Fecha de Fin</th>
+                <th class="table-dark">Prioridad</th>
+                <th class="table-dark">Estado</th>
+                <th class="table-dark">Categoría</th>
+                <th class="table-dark">Asignado a</th>
+                <th class="table-dark">Recordatorio</th>
+                <th class="table-dark">Fecha de Recordatorio</th>
+                <th class="table-dark">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (assignments == null)
+            {
                 <tr>
-                    <th class="table-dark">Id</th>
-                    <th class="table-dark">Título</th>
-                    <th class="table-dark">Descripción</th>
-                    <th class="table-dark">Fecha de Inicio</th>
-                    <th class="table-dark">Fecha de Fin</th>
-                    <th class="table-dark">Prioridad</th>
-                    <th class="table-dark">Estado</th>
-                    <th class="table-dark">Categoría</th>
-                    <th class="table-dark">Asignado a</th>
-                    <th class="table-dark">Recordatorio</th>
-                    <th class="table-dark">Fecha de Recordatorio</th>
-                    <th class="table-dark">Acciones</th>
+                    <td colspan="8" align="center">No Data Found</td>
                 </tr>
-            </thead>
-            <tbody>
-                @if (assignments == null)
+            }
+            else
+            {
+                @foreach (var assignment in assignments)
                 {
                     <tr>
-                        <td colspan="8" align="center">No Data Found</td>
+                        <td class="table-dark">@assignment.Id</td>
+                        <td class="table-dark">@assignment.Title</td>
+                        <td class="table-dark">@assignment.Description</td>
+                        <td class="table-dark">@assignment.StartDate</td>
+                        <td class="table-dark">@assignment.EndDate</td>
+                        <td class="table-dark">@assignment.Priority</td>
+                        <td class="table-dark">@assignment.Status</td>
+                        <td class="table-dark">@assignment.Category</td>
+                        <td class="table-dark">@assignment.Assignee</td>
+                        <td class="table-dark">@assignment.Reminder</td>
+                        <td class="table-dark">@assignment.ReminderDate</td>
+                        <td class="table-dark">
+                            <a href="@GetEditAssignmentViewUrl(@assignment)" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"></path>
+                                </svg> Edit
+                            </a>
+                            <a class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true" @onclick="_ => DeleteAssignment(assignment)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"></path>
+                                </svg> Delete
+                            </a>
+                        </td>
                     </tr>
                 }
-                else
-                {
-                    @foreach (var assignment in assignments)
-                    {
-                        <tr>
-                            <td class="table-dark">@assignment.Id</td>
-                            <td class="table-dark">@assignment.Title</td>
-                            <td class="table-dark">@assignment.Description</td>
-                            <td class="table-dark">@assignment.StartDate</td>
-                            <td class="table-dark">@assignment.EndDate</td>
-                            <td class="table-dark">@assignment.Priority</td>
-                            <td class="table-dark">@assignment.Status</td>
-                            <td class="table-dark">@assignment.Category</td>
-                            <td class="table-dark">@assignment.Assignee</td>
-                            <td class="table-dark">@assignment.Reminder</td>
-                            <td class="table-dark">@assignment.ReminderDate</td>
-                            <td class="table-dark">
-                                <div class="btn-group" role="group">
-                                    <a href="@GetEditAssignmentViewUrl(@assignment)" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Edit</a>
-                                    <a class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true" @onclick="_ => DeleteAssignment(assignment)">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
 </div>
 <h4 style="color:blue;">
     Quiere agregar una nueva tarea? Haz clic en <a href="/assignment/create">Agregar tarea</a>
